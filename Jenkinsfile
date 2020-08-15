@@ -5,12 +5,12 @@ pipeline {
         DOCKER_IMAGE_NAME = "systemctl/train-schedule"
     }
     stages {
-        stage('Build') {
+        stage('Build Gradle') {
             steps {
                 echo 'Running build automation'
-                sh 'pwd && ls -ltr'
+                sh 'pwd && ls -ltr && ls dist/'
                 sh './gradlew build --no-daemon'
-                sh 'ls -ltr'
+                sh 'ls -ltr &&  ls dist/'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
