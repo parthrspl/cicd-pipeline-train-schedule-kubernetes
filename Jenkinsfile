@@ -8,8 +8,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running build automation'
-                sh 'pwd && ls'
+                sh 'pwd && ls -ltr'
                 sh './gradlew build --no-daemon'
+                sh 'ls -ltr'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
@@ -18,6 +19,8 @@ pipeline {
                 branch 'master'
             }
             steps {
+                input 'Build Docker Image?'
+                milestone(1)
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
                     app.inside {
@@ -31,6 +34,8 @@ pipeline {
                 branch 'master'
             }
             steps {
+                input 'Push Docker Image?'
+                milestone(1)
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
                         app.push("${env.BUILD_NUMBER}")
