@@ -13,7 +13,7 @@ pipeline {
                 echo 'Running build automation'
                 sh 'pwd && ls -ltr && ls dist/'
                 sh './gradlew build --no-daemon'
-                sh 'ls -ltr &&  ls dist/'
+                sh 'ls -ltr'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
