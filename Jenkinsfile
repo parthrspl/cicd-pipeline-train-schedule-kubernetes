@@ -6,6 +6,9 @@ pipeline {
     }
     stages {
         stage('Build Gradle') {
+            when {
+                branch 'k8stest'
+            }
             steps {
                 echo 'Running build automation'
                 sh 'pwd && ls -ltr && ls dist/'
@@ -16,7 +19,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
-                branch 'master'
+                branch 'k8stest'
             }
             steps {
                 input 'Build Docker Image?'
@@ -31,7 +34,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                branch 'master'
+                branch 'k8stest'
             }
             steps {
                 input 'Push Docker Image?'
