@@ -33,4 +33,4 @@ spec:
       - name: train-schedule
         image: 220897588425.dkr.ecr.ap-south-1.amazonaws.com/rishabh-ecr:Train-App-__versiondeploy__
         ports:
-        - containerPort: 8080
+        - containerPort: 8090
